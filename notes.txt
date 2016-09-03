@@ -1,0 +1,13 @@
+-add to Quest table
+	+quest points needed
+	+members' only
+	+difficulty
+	+length
+
+
+$(selector).post(URL,data,function(data,status,xhr),dataType)
+$row = mysqli_fetch_array($result);
+mysqli_real_escape_string(connection,escapestring);
+json_encode
+
+-subTree doesn't recurse
