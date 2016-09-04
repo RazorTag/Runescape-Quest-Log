@@ -81,10 +81,10 @@ INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Monkey Madne
 INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Monkey Madness II", "Recipe for Disaster");
 INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Monkey Madness II", "Troll Stronghold");
 INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Monkey Madness II", "Watchtower");
-INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's End Part I", "Big Chompy Bird Hunting");
-INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's End Part I", "Roving Elves");
-INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's End Part I", "Sheep Herder");
-INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's End Part II", "Mourning's End Part I");
+INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's Ends Part I", "Big Chompy Bird Hunting");
+INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's Ends Part I", "Roving Elves");
+INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's Ends Part I", "Sheep Herder");
+INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("Mourning's Ends Part II", "Mourning's End Part I");
 INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("My Arm's Big Adventure", "Eadgar's Ruse");
 INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("My Arm's Big Adventure", "The Fued");
 INSERT INTO QuestPrerequisite(baseQuest, prerequisiteQuest) VALUES("My Arm's Big Adventure", "Jungle Potion");

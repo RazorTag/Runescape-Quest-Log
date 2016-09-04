@@ -72,7 +72,7 @@ INSERT INTO Quest(questName) VALUES("Monkey Madness II");
 INSERT INTO Quest(questName) VALUES("Monk's Friend");
 INSERT INTO Quest(questName) VALUES("Mountain Daughter");
 INSERT INTO Quest(questName) VALUES("Mourning's Ends Part I");
-INSERT INTO Quest(questName) VALUES("Mounring's Ends Part II");
+INSERT INTO Quest(questName) VALUES("Mourning's Ends Part II");
 INSERT INTO Quest(questName) VALUES("Murder Mystery");
 INSERT INTO Quest(questName) VALUES("My Arm's Big Adventure");
 INSERT INTO Quest(questName) VALUES("Nature Spirit");

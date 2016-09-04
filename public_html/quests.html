@@ -2,19 +2,38 @@
 <html>
 
 <head>
-	<title>Quest Index</title>
+	<title>Quest Log</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="google-signin-client_id" content="996411519280-h53shheh1d2fia4invfqv9muvp9ruih4.apps.googleusercontent.com">
 	<link rel="shortcut icon" href="images/favicon.ico">
-	<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
-	<script type="text/javascript" src="js/quests.js"></script>	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script type="text/javascript" src="js/quests.js"></script>
 	<link rel="stylesheet" href="css/quests.css">
 </head>
 
 <body>
-	<input type="text" id="questName" value="Recipe for Disaster" />
-	<button id="loadQuestButton">Load Quest Tree</button>
-	<h2 id="baseQuest"></h2>
-	<div id="questTree"></div>
+	<div id="loginBar">
+	<table>
+		<tr>
+		<td>
+			<div class="g-signin2 table-row" data-onsuccess="onSignIn" onclick="signOut();"></div>
+		</td>
+		<td>
+			<div id="signOutButton" class="hidden table-row">
+				<div style="height:36px;width:84px;" class="abcRioButton abcRioButtonLightBlue"><div class="abcRioButtonContentWrapper"><span style="font-size:13px;line-height:34px;" class="abcRioButtonContents"><span id="not_signed_int1s4oc1m9z0" style="display: none;">Sign in</span><span id="connectedt1s4oc1m9z0">Sign out</span></span></div></div>
+			</div>
+		</td>
+		</tr>
+	</table>
+	</div>
+
+	<div id="questTreeDiv">
+		<input type="text" id="questName" class="center" />
+		<select id="questSelect" class="center"></select>
+		<h2 id="baseQuest" class="center"></h2>
+		<div id="questTree" class="center"></div>
+	</div>
 </body>
 
 </html>

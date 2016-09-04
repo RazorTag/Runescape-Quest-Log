@@ -2,8 +2,9 @@
 session_start();
 require "database.php";
 
-$questName = mysqli_real_escape_string($db, $_POST["questName"]);
-$questTree = prereqQuests($questName, $db);
+$questName = $_POST["questName"];
+$questTree["questNotFound"] = !questExists($questName, $db);
+if(!$questTree["questNotFound"]) { $questTree["questTree"] = prereqQuests($questName, $db); }
 echo json_encode($questTree);
 
 function prereqQuests($baseQuest, $db) {
@@ -11,13 +12,19 @@ function prereqQuests($baseQuest, $db) {
 	$result = mysqli_query($db, $sql);
 	$prereqQuests = array();
 	if($result) {
-		while($row = mysqli_fetch_assoc($result))
-		{
+		while($row = mysqli_fetch_assoc($result)) {
 		  $row["children"] = prereqQuests($row["prerequisiteQuest"], $db);
 		  $prereqQuests[] = $row;
 		}
 	}
 	return $prereqQuests;
+}
+
+function questExists($baseQuest, $db) {
+	$sql = "SELECT * FROM Quest WHERE questName='$baseQuest'";
+	$result = mysqli_fetch_assoc(mysqli_query($db, $sql));
+	if($result) { return true; }
+	else { return false; }
 }
 
 exit();
