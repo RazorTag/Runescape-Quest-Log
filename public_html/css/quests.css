@@ -1,3 +1,24 @@
+li {
+	padding: 8px;
+	margin: 2px;
+	border-color: black;
+	cursor: pointer;
+	list-style-position:inside;
+	width: 300px;
+}
+
+div > ul {
+	padding-left: 0;
+}
+
+.liUnchecked {
+	background-color: red;
+}
+
+.liChecked {
+	background-color: green;
+}
+
 .hidden {
 	visibility: hidden;
 }
@@ -24,14 +45,25 @@
     display: table;
 }
 
+#questSelectDiv {
+	width: 230px;
+	margin: auto;
+}
+
 #questName {
-	margin-bottom: 10px;
+	margin: 0 0 10px 0;
 	height: 23px;
-	padding: 0px;
+	padding: 0;
+	width: 200px;
 }
 
 #questSelect {
 	width: 20px;
 	height: 27px;
-	padding: 0px;
+	margin: 0;
+	padding: 0;
+}
+
+#questTree {
+	width: 400px;
 }

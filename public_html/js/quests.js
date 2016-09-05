@@ -27,6 +27,8 @@ function loadUserInfo(IDToken) {
     },
     "json"
   );
+
+  $("#questSelect").removeClass("hidden");
 }
 
 function clearUserInfo() {
@@ -43,12 +45,12 @@ function initialize() {
       loadQuestTree();
     }
   });
-
   $("#questName").focus();
   $("#questSelect").change(function() {
     $("#questName").val($("#questSelect").val());
     loadQuestTree();
   });
+  $("#questTree").on("click", "li", clickQuest);
 }
 
 function loadConstants() {
@@ -79,6 +81,8 @@ function loadQuestTree() {
   $.post("php/prerequisiteTree.php",
     {questName: selectedQuest},
     function(data, status) {
+      console.log(data.beforeCheck);
+      console.log(data.afterCheck);
       if(status == "success") {
         if(data.questNotFound) { 
           clearQuestTree();
@@ -110,27 +114,24 @@ function clearQuestTree() {
 }
 
 function createQuestTree(questTree) {
-	var tree = "";
-
-	tree += "<ul>"
-	for(var i = 0; i < questTree.length; i++)	{
-		tree += "<li>" + subTree(questTree[i]) + "</li>";
-	}
-	tree += "</ul>";
-
-	$("#questTree").html(tree);
+	$("#questTree").html(subTree(questTree));
 }
 
-function subTree(subTreeNode) {
+function subTree(questTree) {
 	var tree = "";
-	tree += subTreeNode.prerequisiteQuest;
-	if(subTreeNode.children.length > 0)
-	{
-		tree += "<ul>"
-		for(var i = 0; i < subTreeNode.children.length; i++) {
-			tree += "<li>" + subTree(subTreeNode.children[i]) + "</li>";
-		}
-		tree += "</ul>";
-	}
-	return tree;
+
+  if(questTree.length == 0) { return ""; }
+  
+  tree = $("<ul>");
+  for(var i = 0; i < questTree.length; i++) {
+    tree.append($("<li>").html(questTree[i].prerequisiteQuest).addClass("liUnchecked"));
+    tree.append(subTree(questTree[i].children));
+  }
+  return tree;
+}
+
+function clickQuest() {
+  $(this).toggleClass("liUnchecked");
+  $(this).toggleClass("liChecked");
+  console.log($(this).html());
 }

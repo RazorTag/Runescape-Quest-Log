@@ -1,3 +1,8 @@
+//TODO
+-dropdown list is not centered
+-allow user to check off completed quests
+-save checked off quests
+-load checked off quests
 -add to Quest table
 	+quest points needed
 	+members' only

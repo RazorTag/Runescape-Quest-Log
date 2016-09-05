@@ -3,6 +3,12 @@ session_start();
 require "database.php";
 
 $questName = $_POST["questName"];
+//$questName = "Eadgar's Ruse";
+$questTree["beforeCheck"] = $questName;
+$questName = mysqli_real_escape_string($db, stripslashes($questName));
+
+$questTree["afterCheck"] = $questName;
+
 $questTree["questNotFound"] = !questExists($questName, $db);
 if(!$questTree["questNotFound"]) { $questTree["questTree"] = prereqQuests($questName, $db); }
 echo json_encode($questTree);
