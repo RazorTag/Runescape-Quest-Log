@@ -1,24 +1,31 @@
+var userID = "";
+var loggedIn = false;
+var prereqList;
+var loadedQuest = "";
+
 $(document).ready(function() {
   initialize();
 });
 
 function onSignIn(googleUser) {
-  var id_token = googleUser.getAuthResponse().id_token;
-  loadUserInfo(id_token);
   $("#signOutButton").removeClass("hidden");
+  userID = googleUser.getBasicProfile().getId();
+  loadQuestTree(loadedQuest);
+  loggedIn = true;
 }
 
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
   auth2.signOut().then(function () {
-    clearUserInfo();
     $("#signOutButton").addClass("hidden");
+    loggedIn = false;
+    userID = "";
+    removeCompletedStatus();
   });
 }
 
-function loadUserInfo(IDToken) {
-  $.post("php/loadUserInfo.php",
-    {IDToken: IDToken},
+function loadQuestList() {
+  $.get("php/loadQuestList.php",
     function(data, success) {
       $("#questSelect").html("");
       $(data.quests).each(function() {
@@ -31,19 +38,13 @@ function loadUserInfo(IDToken) {
   $("#questSelect").removeClass("hidden");
 }
 
-function clearUserInfo() {
-
-}
-
 function initialize() {
-  loadUserInfo();
+  loadQuestList();
 
   $("#signOutButton").click(signOut);
 
   $("#questName").keypress(function(e) {
-    if(e.keyCode == 13) {
-      loadQuestTree();
-    }
+    if(e.keyCode == 13) { loadQuestTree(); }
   });
   $("#questName").focus();
   $("#questSelect").change(function() {
@@ -51,10 +52,6 @@ function initialize() {
     loadQuestTree();
   });
   $("#questTree").on("click", "li", clickQuest);
-}
-
-function loadConstants() {
-
 }
 
 function loadFacebookSDK() {
@@ -76,14 +73,15 @@ function loadFacebookSDK() {
   );
 }
 
-function loadQuestTree() {
-  var selectedQuest = $("#questName").val();
+function loadQuestTree(selectedQuest) {
+  if(!selectedQuest) { selectedQuest = $("#questName").val(); }
+  if(!selectedQuest) { return; }
   $.post("php/prerequisiteTree.php",
-    {questName: selectedQuest},
+    {questName: selectedQuest, userID: userID},
     function(data, status) {
-      console.log(data.beforeCheck);
-      console.log(data.afterCheck);
+      console.log(data);
       if(status == "success") {
+        loadedQuest = selectedQuest;
         if(data.questNotFound) { 
           clearQuestTree();
           $("#baseQuest").html(selectedQuest + " not found");
@@ -114,24 +112,60 @@ function clearQuestTree() {
 }
 
 function createQuestTree(questTree) {
+  prereqList = [];
 	$("#questTree").html(subTree(questTree));
 }
 
 function subTree(questTree) {
 	var tree = "";
+  var li;
 
   if(questTree.length == 0) { return ""; }
   
   tree = $("<ul>");
   for(var i = 0; i < questTree.length; i++) {
-    tree.append($("<li>").html(questTree[i].prerequisiteQuest).addClass("liUnchecked"));
+    li = $("<li>").html(questTree[i].prerequisiteQuest);
+    li.val(prereqList.length);
+    prereqList.push(questTree[i].prerequisiteQuest);
+    li.addClass(questClass(li, questTree[i].completed));
+    tree.append(li);
     tree.append(subTree(questTree[i].children));
   }
   return tree;
 }
 
+function removeCompletedStatus() {
+  $("li").each(function() {
+    questClass($(this));
+  });
+}
+
+function questClass(li, completed) {
+  li.removeClass("liChecked");
+  li.removeClass("liUnchecked");
+  li.removeClass("liLoggedOut");
+
+  if(loggedIn) {
+    if(completed) { li.addClass("liChecked"); }
+    else { li.addClass("liUnchecked"); }
+  }
+  else { li.addClass("liLoggedOut"); }
+}
+
 function clickQuest() {
-  $(this).toggleClass("liUnchecked");
-  $(this).toggleClass("liChecked");
-  console.log($(this).html());
+  var li;
+
+  if(loggedIn) {
+    li = $(this);
+    li.toggleClass("liUnchecked");
+    li.toggleClass("liChecked");
+
+    $.post("php/toggleQuestCompleted.php",
+      {userID: userID, questName: prereqList[$(this).val()]},
+      function(data, status) {
+        questClass(li, data);
+      },
+      "json"
+    );
+  }
 }

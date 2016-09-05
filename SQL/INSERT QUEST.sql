@@ -93,7 +93,7 @@ INSERT INTO Quest(questName) VALUES("Romeo & Juliet");
 INSERT INTO Quest(questName) VALUES("Roving Elves");
 INSERT INTO Quest(questName) VALUES("Royal Trouble");
 INSERT INTO Quest(questName) VALUES("Rum Deal");
-INSERT INTO Quest(questName) VALUES("Rune Myteries");
+INSERT INTO Quest(questName) VALUES("Rune Mysteries");
 INSERT INTO Quest(questName) VALUES("Scorpion Catcher");
 INSERT INTO Quest(questName) VALUES("Sea Slug");
 INSERT INTO Quest(questName) VALUES("Shades of Mort'ton");

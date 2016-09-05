@@ -16,3 +16,7 @@ mysqli_real_escape_string(connection,escapestring);
 json_encode
 
 -subTree doesn't recurse
+
+
+
+SELECT completed FROM CompletedQuests WHERE userID="107064974500892208242" AND $questName="Goblin Diplomacy"

@@ -2,7 +2,6 @@ li {
 	padding: 8px;
 	margin: 2px;
 	border-color: black;
-	cursor: pointer;
 	list-style-position:inside;
 	width: 300px;
 }
@@ -13,10 +12,16 @@ div > ul {
 
 .liUnchecked {
 	background-color: red;
+	cursor: pointer;
 }
 
 .liChecked {
 	background-color: green;
+	cursor: pointer;
+}
+
+.liLoggedOut {
+	background-color: #EEEEEE;
 }
 
 .hidden {
