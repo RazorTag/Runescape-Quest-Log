@@ -3,6 +3,23 @@ set foreign_key_checks = 0;
 DROP TABLE IF EXISTS Quest, Skill, QuestPrerequisite, SkillRequirement, Difficulty, Length, User, CompletedQuests;
 set foreign_key_checks = 1;
 
+CREATE TABLE Skill(
+	skillName VARCHAR(30),
+	PRIMARY KEY(skillName)
+) ENGINE = Innodb;
+
+CREATE TABLE Difficulty
+(
+	difficulty VARCHAR(20),
+	PRIMARY KEY(difficulty)
+) ENGINE = Innodb;
+
+CREATE TABLE Length
+(
+	length VARCHAR(20),
+	PRIMARY KEY(length)
+) ENGINE = Innodb;
+
 CREATE TABLE Quest 
 (
 	questName VARCHAR(150),
@@ -14,12 +31,7 @@ CREATE TABLE Quest
 	PRIMARY KEY(questName),
 	FOREIGN KEY(difficulty) REFERENCES Difficulty(difficulty),
 	FOREIGN KEY(length) REFERENCES Length(length)
-);
-
-CREATE TABLE Skill(
-	skillName VARCHAR(30),
-	PRIMARY KEY(skillName)
-);
+) ENGINE = Innodb;
 
 CREATE TABLE QuestPrerequisite
 (
@@ -29,7 +41,7 @@ CREATE TABLE QuestPrerequisite
 	PRIMARY KEY(id),
 	FOREIGN KEY(baseQuest) REFERENCES Quest(questName),
 	FOREIGN KEY(prerequisiteQuest) REFERENCES Quest(questName)
-);
+) ENGINE = Innodb;
 
 CREATE TABLE SkillRequirement
 (
@@ -40,19 +52,7 @@ CREATE TABLE SkillRequirement
 	PRIMARY KEY(id),
 	FOREIGN KEY(questName) REFERENCES Quest(questName),
 	FOREIGN KEY(skillName) REFERENCES Skill(skillName)
-);
-
-CREATE TABLE Difficulty
-(
-	difficulty VARCHAR(20),
-	PRIMARY KEY(difficulty)
-);
-
-CREATE TABLE Length
-(
-	length VARCHAR(20),
-	PRIMARY KEY(length)
-);
+) ENGINE = Innodb;
 
 CREATE TABLE CompletedQuests
 (
@@ -60,4 +60,4 @@ CREATE TABLE CompletedQuests
 	questName VARCHAR(150),
 	PRIMARY KEY(userID, questName),
 	FOREIGN KEY(questName) REFERENCES Quest(questName)
-);
+) ENGINE = Innodb;
